@@ -2,6 +2,7 @@
 import streamlit as st
 import networkx as nx
 import matplotlib.pyplot as plt
+from algoritmos import busca_em_largura
 
 st.set_page_config(
     page_title="Simulador de Rede Social",
@@ -14,9 +15,7 @@ st.subheader("Teoria dos Grafos - Grupo 02")
 
 st.write("Gerencie usuários e amizades e visualize as conexões da rede.")
 
-# ==========================================
 # 1. INICIALIZAR O GRAFO
-# ==========================================
 
 if "grafo" not in st.session_state:
     G = nx.Graph()
@@ -40,9 +39,7 @@ if "grafo" not in st.session_state:
 
 G = st.session_state.grafo
 
-# ==========================================
 # 2. INFORMAÇÕES DA REDE
-# ==========================================
 
 col1, col2, col3 = st.columns(3)
 
@@ -52,9 +49,7 @@ col3.metric("Tipo de grafo", "Não dirigido")
 
 st.divider()
 
-# ==========================================
 # 3. CADASTRAR USUÁRIOS
-# ==========================================
 
 st.subheader("👤 Cadastrar usuário")
 
@@ -81,9 +76,7 @@ with st.form("form_usuario", clear_on_submit=True):
 
 st.divider()
 
-# ==========================================
 # 4. CRIAR AMIZADES
-# ==========================================
 
 st.subheader("🤝 Criar amizade")
 
@@ -126,9 +119,7 @@ else:
 
 st.divider()
 
-# ==========================================
 # 5. VISUALIZAR O GRAFO
-# ==========================================
 
 st.subheader("🔗 Rede de amizades")
 
@@ -180,13 +171,81 @@ else:
 
 st.divider()
 
-# ==========================================
 # 6. GRAU DOS VÉRTICES
-# ==========================================
 
 st.subheader("📊 Quantidade de amigos por usuário")
 
 for usuario in G.nodes():
     st.write(
         f"**{usuario}:** {G.degree(usuario)} amigo(s)"
+    )
+
+for usuario in G.nodes():
+    st.write(
+        f"**{usuario}:** {G.degree(usuario)} amigo(s)"
+    )
+
+# 7. BUSCA EM LARGURA (BFS)
+
+st.divider()
+
+st.subheader("🔎 Encontrar caminho entre usuários")
+
+st.write(
+    "Selecione dois usuários para descobrir "
+    "o menor caminho de amizades entre eles."
+)
+
+usuarios_bfs = sorted(G.nodes())
+
+if len(usuarios_bfs) >= 2:
+
+    with st.form("form_bfs"):
+
+        origem = st.selectbox(
+            "Usuário de origem",
+            usuarios_bfs,
+            key="bfs_origem"
+        )
+
+        destino = st.selectbox(
+            "Usuário de destino",
+            usuarios_bfs,
+            index=1,
+            key="bfs_destino"
+        )
+
+        buscar = st.form_submit_button(
+            "🔍 Buscar menor caminho"
+        )
+
+    if buscar:
+
+        caminho = busca_em_largura(
+            G, origem, destino
+        )
+
+        if caminho is None:
+            st.warning(
+                "Não existe um caminho entre esses usuários."
+            )
+
+        else:
+            distancia = len(caminho) - 1
+
+            st.success("Caminho encontrado!")
+
+            st.write(
+                "**Caminho:** " + " → ".join(caminho)
+            )
+
+            st.metric(
+                "Distância entre usuários",
+                f"{distancia} conexão(ões)"
+            )
+
+else:
+    st.info(
+        "Cadastre pelo menos dois usuários "
+        "para realizar a busca BFS."
     )
