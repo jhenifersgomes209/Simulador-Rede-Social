@@ -1,0 +1,10 @@
+#Esse arquivo informa ao Git quais arquivos ele deve ignorar.
+#Por que isso é necessário? 
+#A pasta .venv contém as bibliotecas instaladas no seu computador. Ela não precisa ser enviada ao GitHub e pode ocupar bastante espaço.
+
+.venv/
+__pycache__/
+*.pyc
+.env
+.streamlit/secrets.toml
+.vscode/
