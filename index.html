@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphogram</title>
+    <!-- Aqui eu conecto o arquivo responsável pela aparência do site. -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Aqui eu adiciono a fonte que utilizo no projeto. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Aqui eu organizo toda a estrutura principal do Graphogram. -->
+    <div class="app-container">
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+            <!-- Aqui eu apresento o nome e a identificação do projeto. -->
+            <div class="logo">
+                <div class="logo-icon">G</div>
+                <h1>GRAPHOGRAM</h1>
+            </div>
+
+            <!-- Aqui eu organizo as opções de navegação do site. -->
+            <nav class="main-navigation">
+                <span class="navigation-title">MENU PRINCIPAL</span>
+                <button class="nav-link active" data-page="home">
+                    <span class="nav-icon">⌂</span>
+                    <span>Início</span>
+                </button>
+                <button class="nav-link" data-page="people">
+                    <span class="nav-icon">♧</span>
+                    <span>Pessoas</span>
+                </button>
+                <button class="nav-link" data-page="graph">
+                    <span class="nav-icon">⌘</span>
+                    <span>Grafo de conexões</span>
+                </button>
+            </nav>
+
+            <!-- Aqui eu mostro que os dados ficam salvos no próprio navegador. -->
+            <div class="sidebar-footer">
+                <div class="storage-indicator"></div>
+                <div>
+                    <strong>Seus dados</strong>
+                    <span>Salvos neste navegador</span>
+                </div>
+            </div>
+            <button id="saveDataButton" class="save-data-button">
+                    <span>Salvar dados</span>
+            </button>
+        </aside>
+
+        <!-- ÁREA PRINCIPAL -->
+        <main class="main-content">
+            <!-- Aqui eu mantenho o cabeçalho compartilhado entre as páginas. -->
+            <header class="page-header">
+                <div class="header-information">
+                    <span class="current-date" id="currentDate">
+                        GRAPHOGRAM
+                    </span>
+                    <h2 id="pageTitle">
+                        Seu espaço, suas conexões.
+                    </h2>
+                </div>
+
+                <!-- Aqui eu identifico o usuário que está utilizando o site. -->
+                <div class="header-profile">
+                    <img
+                        src="assets/images/perfil-principal.png"
+                        alt="Foto do perfil"
+                        class="header-avatar"
+                        id="topAvatar"
+                    >
+                    <span id="topName">Yan</span>
+                </div>
+            </header>
+
+            <!-- PÁGINA INICIAL -->
+            <section class="page active" id="page-home">
+                <!-- STORIES E MOMENTOS -->
+                <section class="stories-section">
+                    <div class="section-header">
+                        <div>
+                            <h3>Momentos</h3>
+                            <p>O que está acontecendo na sua rede</p>
+                        </div>
+                        <span class="section-label">STORIES</span>
+                    </div>
+
+                    <!-- Aqui eu organizo as fotos dos usuários em formato de stories. -->
+                    <div class="stories-list" id="storiesRow">
+                        <!-- Aqui eu deixo o espaço para adicionar um novo story. -->
+                        <button class="story-item add-story" id="storyAdd">
+                            <div class="story-avatar">
+                                <span>+</span>
+                            </div>
+                            <span>Seu story</span>
+                        </button>
+                        <!-- Aqui eu apresento os outros usuários da rede. -->
+                        <button class="story-item">
+                            <div class="story-avatar">
+                                <img src="assets/images/luna.png" alt="Foto de Luna">
+                            </div>
+                            <span>Luna</span>
+                        </button>
+                        <button class="story-item">
+                            <div class="story-avatar">
+                                <img src="assets/images/pedro.png" alt="Foto de Pedro">
+                            </div>
+                            <span>Pedro</span>
+                        </button>
+                        <button class="story-item">
+                            <div class="story-avatar">
+                                <img src="assets/images/marina.png" alt="Foto de Marina">
+                            </div>
+                            <span>Marina</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- PUBLICAÇÕES -->
+                <section class="feed-section">
+                    <div class="section-header">
+                        <div>
+                            <h3>Timeline</h3>
+                            <p>As novidades da comunidade</p>
+                        </div>
+                        <button class="text-button" id="newPostTextBtn">
+                            + Nova publicação
+                        </button>
+                    </div>
+
+                    <!-- Aqui eu apresento as publicações cadastradas pelos usuários. -->
+                    <div class="feed-list" id="feed">
+                        <!-- O JavaScript adiciona as publicações nesta área. -->
+                    </div>
+                </section>
+            </section>
+
+            <!-- PÁGINA DE PESSOAS -->
+            <section class="page" id="page-people">
+                <!-- Aqui eu apresento o título e as opções da página de pessoas. -->
+                <div class="people-heading">
+                    <div>
+                        <span class="section-label">COMUNIDADE GRAPHOGRAM</span>
+                        <h2>Encontre sua turma.</h2>
+                        <p>
+                            Conheça pessoas, acompanhe novidades e construa novas conexões.
+                        </p>
+                    </div>
+
+                    <!-- Aqui eu deixo os botões para cadastrar pessoas e configurar as conexões. -->
+                    <div class="people-actions">
+                        <button class="secondary-button" id="openConnectionsModal">
+                            Configurar conexões
+                        </button>
+                        <button class="primary-button" id="openUserModal">
+                            + Adicionar usuário
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Aqui eu organizo a pesquisa e a quantidade de usuários. -->
+                <div class="people-toolbar">
+                    <div class="search-container">
+                        <input
+                            type="text"
+                            id="peopleSearch"
+                            placeholder="Buscar pessoas pelo nome..."
+                        >
+                    </div>
+                    <span class="section-label" id="peopleCount">
+                        4 PESSOAS
+                    </span>
+                </div>
+                
+                <!-- Aqui eu apresento os cartões de todos os usuários cadastrados. -->
+                <div class="people-grid" id="peopleGrid">
+                    <!-- O JavaScript adiciona os usuários nesta área. -->
+                </div>
+            </section>
+
+            <!-- PÁGINA DO GRAFO -->
+            <section class="page" id="page-graph">
+                <!-- Aqui eu apresento as informações principais do grafo. -->
+                <div class="graph-heading">
+                    <div>
+                        <span class="section-label">VISUALIZAÇÃO DE DADOS</span>
+                        <h2>Mapa de conexões.</h2>
+                        <p>
+                            Cada pessoa é um vértice. Cada relação de seguir é uma aresta dirigida.
+                        </p>
+                    </div>
+                    <button class="secondary-button" id="updateGraph">
+                        Atualizar grafo
+                    </button>
+                </div>
+
+                <!-- Aqui eu mostro algumas informações sobre as conexões cadastradas. -->
+                <div class="graph-statistics">
+                    <div class="stat-card">
+                        <span class="stat-label">VÉRTICES</span>
+                        <strong id="graphVertices">4</strong>
+                        <small>Usuários cadastrados</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-label">ARESTAS</span>
+                        <strong id="graphEdges">0</strong>
+                        <small>Relações de seguir</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-label">TIPO DE GRAFO</span>
+                        <strong>Dirigido</strong>
+                        <small>As conexões possuem direção</small>
+                    </div>
+                </div>
+
+                <!-- Aqui eu deixo a área vazia para adicionar minha implementação do grafo. -->
+                <div class="graph-container" id="graphCanvas">
+                </div>
+            </section>
+        </main>
+
+        <!-- COLUNA LATERAL DIREITA -->
+        <aside class="right-sidebar" id="rightSidebar">
+            <!-- Aqui eu apresento um resumo do perfil do usuário atual. -->
+            <section class="profile-card">
+                <div class="card-header">
+                    <h3>Seu perfil</h3>
+                    <span class="profile-status">ATIVO</span>
+                </div>
+
+                <div class="profile-cover"></div>
+                <div class="profile-information">
+                    <img
+                        src="assets/images/perfil-principal.png"
+                        alt="Foto do perfil"
+                        class="profile-avatar"
+                        id="cardAvatar"
+                    >
+                    <h3 id="cardName">Yan Vinicius Silva</h3>
+                    <span id="cardHandle">@yanszada</span>
+                    <p id="cardBio">
+                        Fazendo novas conexões no Graphogram.
+                    </p>
+                    <!-- Aqui eu apresento as estatísticas do perfil. -->
+                    <div class="profile-statistics">
+                        <div>
+                            <strong id="statPosts">0</strong>
+                            <span>Posts</span>
+                        </div>
+                        <div>
+                            <strong id="statFollowing">0</strong>
+                            <span>Seguindo</span>
+                        </div>
+                        <div>
+                            <strong id="statFollowers">0</strong>
+                            <span>Seguidores</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Aqui eu mostro pessoas que ainda não são seguidas pelo usuário. -->
+            <section class="suggestions-card">
+                <div class="card-header">
+                    <h3>Talvez conheça</h3>
+                    <button class="text-button" data-goto="people">
+                        Ver todos
+                    </button>
+                </div>
+
+                <div class="suggestions-list" id="suggestions">
+                    <!-- O JavaScript adiciona as sugestões nesta área. -->
+                </div>
+            </section>
+
+            <!-- Aqui eu deixo uma mensagem para complementar a lateral do site. -->
+            <section class="quote-card">
+                <span class="quote-symbol">"</span>
+                <p>
+                    Conexões reais transformam ideias em possibilidades.
+                </p>
+                <span class="quote-author">
+                    GRAPHOGRAM COMMUNITY
+                </span>
+            </section>
+        </aside>
+    </div>
+
+    <!-- JANELA PARA ADICIONAR USUÁRIO -->
+    <div class="modal-backdrop" id="userModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Adicionar usuário</h2>
+                <button class="modal-close" data-close="userModal">
+                    &times;
+                </button>
+            </div>
+
+            <!-- Aqui eu cadastro os dados de uma nova pessoa. -->
+            <form id="userForm">
+                <label for="userName">Nome completo</label>
+                <input
+                    type="text"
+                    id="userName"
+                    name="name"
+                    placeholder="Digite o nome"
+                    required
+                >
+                <label for="userUsername">Nome de usuário</label>
+                <input
+                    type="text"
+                    id="userUsername"
+                    name="username"
+                    placeholder="Exemplo: usuario"
+                    required
+                >
+                <label for="userBio">Descrição</label>
+                <textarea
+                    id="userBio"
+                    name="bio"
+                    placeholder="Escreva uma breve descrição"
+                ></textarea>
+                <button type="submit" class="primary-button">
+                    Cadastrar usuário
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JANELA PARA CONFIGURAR AS CONEXÕES -->
+    <div class="modal-backdrop" id="connectionsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Configurar conexões</h2>
+                <button class="modal-close" data-close="connectionsModal">
+                    &times;
+                </button>
+            </div>
+
+            <p class="modal-description">
+                Escolha quem está seguindo outra pessoa para montar as relações que serão apresentadas no grafo.
+            </p>
+
+            <!-- Aqui eu escolho o usuário que irá seguir outra pessoa. -->
+            <form id="connectionForm">
+                <label for="followerSelect">Quem está seguindo?</label>
+                <select id="followerSelect" name="follower" required>
+                    <option value="">Selecione uma pessoa</option>
+                </select>
+                <label for="followedSelect">Quem essa pessoa segue?</label>
+                <select id="followedSelect" name="followed" required>
+                    <option value="">Selecione uma pessoa</option>
+                </select>
+                <button type="submit" class="primary-button">
+                    Adicionar conexão
+                </button>
+            </form>
+
+            <!-- Aqui eu apresento as relações que já foram configuradas. -->
+            <div class="connections-list-section">
+                <h3>Conexões cadastradas</h3>
+                <div class="connections-list" id="connectionsList">
+                    <!-- O JavaScript apresenta as relações nesta área. -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JANELA PARA CRIAR PUBLICAÇÃO -->
+    <div class="modal-backdrop" id="postModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Nova publicação</h2>
+                <button class="modal-close" data-close="postModal">
+                    &times;
+                </button>
+            </div>
+
+            <!-- Aqui eu preparo o formulário para publicar uma foto. -->
+            <form id="postForm">
+                <label for="postCaption">Descrição</label>
+                <textarea
+                    id="postCaption"
+                    name="caption"
+                    placeholder="O que você gostaria de compartilhar?"
+                ></textarea>
+                <label for="postPhoto">Escolher foto</label>
+                <input
+                    type="file"
+                    id="postPhoto"
+                    name="photo"
+                    accept="image/*"
+                    required
+                >
+                <button type="submit" class="primary-button">
+                    Publicar
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- Aqui eu apresento mensagens rápidas durante o uso do site. -->
+    <div class="toast" id="toast"></div>
+    <!-- Aqui eu conecto o arquivo responsável pelas funcionalidades do site. -->
+    <script src="js/app.js"></script>
+</body>
+</html>
